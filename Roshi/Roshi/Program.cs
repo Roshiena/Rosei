@@ -3,7 +3,7 @@
 
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-
+using System.Net.Http.Headers;
 
 internal class Program
 {
@@ -176,22 +176,29 @@ internal class Program
 
         }
 
+        //delete record
 
 
+        IWebElement deleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
+        deleteButton.Click();
+        Thread.Sleep(1000);
 
-        //if(codeTextbox.Text != "September26")
+        //alert pop up 
+
+        driver.SwitchTo().Alert().Accept();
+
+        //validate deleted record
+
+        IWebElement deletedRecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+        if(deletedRecord.Text == "October13")
         {
-            //Console.WriteLine("Deleted Successfully");
-            //}
-            //else
-            //  {
-            // Console.WriteLine("Not Deleted");
+            Console.WriteLine("Record deleted successfully");
+        }
+        else
+        {
+            Console.WriteLine("Record deletion failed");
+        }
 
-            // }
 
-            //IWebElement deleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
-            //deleteButton.Click();
-            //Thread.Sleep(1000);
         }
     }
-}
