@@ -1,29 +1,89 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
 using Roshi.Pages;
-using System.Net.Http.Headers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NUnit.Framework;
+using Roshi.Utilities;
+
+namespace Roshi.Tests
+{
+    [TestFixture]
+    public class TM_Tests : CommonDriver
+    {
+        LoginPage loginPageObj = new LoginPage();
+        TMHomePage homePageObj = new TMHomePage();
+        TMPage tmPageObj = new TMPage();
 
 
-   IWebDriver driver = new ChromeDriver();
+        [SetUp]
+        public void LoginActions()
+        {
 
-// Login page object initialization and definition
+            driver = new ChromeDriver();
 
-LoginPage loginPageObj = new LoginPage();
-loginPageObj.LoginSteps(driver);
+            // Login page object initialization and definition
 
-//Home page object intialization and definition
 
-HomePage homePageObj = new HomePage();
-homePageObj.GoToTMPage(driver);
+            loginPageObj.LoginSteps(driver);
 
-// Time and material page object initialization and definition
+            //Home page object intialization and definition
 
-TMPage tmPageObj = new TMPage();
-tmPageObj.CreateTM(driver);
 
-tmPageObj.EditTM(driver);
+            homePageObj.GoToTMPage(driver);
 
-tmPageObj.DeleteTM(driver);
+        }
+        [Test]
+        public void CreateTMTest()
+        {
+
+
+            tmPageObj.CreateTM(driver);
+            
+
+        }
+
+        [Test]
+        public void EditTMTest()
+        {
+
+            tmPageObj.EditTM(driver);
+
+        }
+
+        [Test]
+        public void DelelteTMTest()
+        {
+
+            tmPageObj.DeleteTM(driver);
+
+        }
+
+        public void CloseTestRun()
+        {
+            driver.Quit();
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

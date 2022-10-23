@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Roshi.Pages
 {
-    public class HomePage
+    public class TMHomePage
     {
         public void GoToTMPage(IWebDriver driver)
         {
@@ -19,6 +19,7 @@ namespace Roshi.Pages
 
             IWebElement timeOption = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[3]/a"));
             timeOption.Click();
+            Thread.Sleep(1000);
         }
     }
 }

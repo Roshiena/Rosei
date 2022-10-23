@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools.V105.DOMDebugger;
 using Roshi.Utilities;
 using System;
@@ -66,15 +67,30 @@ namespace Roshi.Pages
         }
 
         public void EditTM(IWebDriver driver)
-
         {
-            IWebElement editButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
-            editButton.Click();
-            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span", 5);
+            IWebElement goLastPageButton1 = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            goLastPageButton1.Click();
+            Thread.Sleep(500);
+            
+            IWebElement recordCreated = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+
+            if (recordCreated.Text == "September26")
+            {
+                IWebElement editButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
+                editButton.Click();
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Assert.Fail("Record to be edited hasn't been found. Record not edited");
+
+            }
+
 
             IWebElement typeCodedropdown1 = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
             typeCodedropdown1.Click();
-            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"TypeCode_listbox\"]/li[1]", 5);
+            Thread.Sleep(1000);
+            
 
             IWebElement materialOption = driver.FindElement(By.XPath("//*[@id=\"TypeCode_listbox\"]/li[1]"));
             materialOption.Click();
@@ -106,7 +122,7 @@ namespace Roshi.Pages
 
             IWebElement lastPage1 = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             lastPage1.Click();
-            Wait.WaitToExist(driver,"XPath", "//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]", 5);
+            Thread.Sleep(1000);
 
             IWebElement editedRecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
             if (editedRecord.Text == "October13")
