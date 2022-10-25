@@ -50,7 +50,7 @@ namespace Roshi.Tests
         public void EditTMTest()
         {
 
-            tmPageObj.EditTM(driver);
+         // tmPageObj.EditTM(driver);
 
         }
 
